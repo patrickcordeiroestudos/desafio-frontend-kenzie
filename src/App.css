@@ -1,0 +1,100 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+section {
+  width: 80%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.138);
+  background-color: white;
+}
+
+.form-anticipation {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-anticipation form {
+  width: 80%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.form-anticipation form h1 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 30px;
+  font-weight: bolder;
+  color: rgb(53, 52, 52);
+}
+
+.form-anticipation form label {
+  color: rgb(77, 77, 77);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.form-anticipation form input {
+  width: 60%;
+  padding: 8px;
+}
+
+.form-anticipation form .days {
+  display: block;
+}
+
+.form-anticipation form #add {
+  display: block;
+}
+
+.form-anticipation form label small {
+  font-size: small;
+  color: rgba(128, 128, 128, 0.555);
+}
+
+.result-api {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: dodgerblue;
+  background-color: rgba(169, 169, 169, 0.189);
+}
+
+.result-api div {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: dodgerblue;
+  gap: 20px;
+  font-style: italic;
+}
+
+.result-api div h3 {
+  font-weight: bold;
+}
+
+.result-api div hr {
+  width: 130%;
+}
