@@ -35,7 +35,7 @@ Projeto desenvolvido durante o curso de **Desenvolvimento FullStack** oferecido 
 O layout proposto para essa calculadora pode ser visto na imagem abaixo.
 
 <p align="center">
-  <img alt="layoutCalculator" title="#layoutCalculator" src="./public/img/layout-calculator.png" width="200px">
+  <img alt="layoutCalculator" title="#layoutCalculator" src="./public/layout-calculator.png" width="200px">
 </p>
 
 ## 🛠 Tecnologias
