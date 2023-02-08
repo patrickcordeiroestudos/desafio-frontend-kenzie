@@ -50,6 +50,38 @@ Você consumirá uma API já existente no endereço abaixo. Em seguida há uma e
   <img alt="imagePost" title="#imagePost" src="./public/imagePost.png" >
 </p>
 
+### **Exemplo**
+
+ `$ curl --request POST \
+        --url https://frontend-challenge-7bu3nxh76a-uc.a.run.app \
+        --header 'content-type: application/json' \
+        --data '{"amount": 15000,
+        "installments": 3,
+        "mdr": 4
+      }
+      
+      {"1":13267,"15":13536,"30":13824,"90":14400}`
+
+### **Exemplo informando períodos**
+
+ `$ curl --request POST \
+        --url https://frontend-challenge-7bu3nxh76a-uc.a.run.app \
+        --header 'content-type: application/json' \
+        --data '{"amount": 15000,
+        "installments": 3,
+        "mdr": 4,
+        "days": [30, 60, 90]
+      }
+      
+      {"30":13824,"60":14208,"90":14400}`
+
+### **Simulando Timeout, Internal Server Error e Delay de resposta**
+
+Para **Timeout** basta executar a request post passando `timeout` através da query string, exemplo: `https://frontend-challenge-7bu3nxh76a-uc.a.run.app?timeout`
+
+Para **Internal Server Error** basta executar a request post passando `internalError` através da query string, exemplo: `https://frontend-challenge-7bu3nxh76a-uc.a.run.app?internalError`
+
+Para **Delay** de resposta, que pode ser usado como simulador de conexão lenta, basta executar a request post passando `delay`, e informando o tempo do delay em milissegundos, exemplo: `https://frontend-challenge-7bu3nxh76a-uc.a.run.app?delay=tempoEmMilissegundos`
 
 ## 🛠 Tecnologias
 
