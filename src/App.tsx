@@ -60,11 +60,9 @@ function App() {
   };
 
   const addPeriod = (e: any) => {
-    // e.preventDefault();
-    const newPeriod = e.target.previousSibling.value;
-    console.dir(newPeriod);
-    // let orderedNewListPeriods = [...listPeriods, newPeriod].sort();
-    setListPeriods([...listPeriods, Number(newPeriod)]);
+    const newPeriod = Number(e.target.previousSibling.value);
+    const newListPeriods = [...listPeriods, newPeriod].sort();
+    setListPeriods([...newListPeriods]);
   };
 
   return (
@@ -126,7 +124,6 @@ function App() {
                     <input
                       id="days"
                       {...register("days")}
-                      value={String(period)}
                       placeholder={String(period)}
                       disabled={true}
                     ></input>
@@ -162,15 +159,25 @@ function App() {
               <h3>
                 VOCÊ RECEBERÁ: <hr />
               </h3>
-              {listToExibition.map((value, key) => (
-                <p>
-                  Em {value} dias:{" "}
-                  {listValuesByPeriods[key].toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </p>
-              ))}
+              {listToExibition.map((value, key) =>
+                value === 1 ? (
+                  <p>
+                    Amanhã:{" "}
+                    {listValuesByPeriods[key].toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
+                ) : (
+                  <p>
+                    Em {value} dias:{" "}
+                    {listValuesByPeriods[key].toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
+                )
+              )}
             </div>
           </div>
         </section>

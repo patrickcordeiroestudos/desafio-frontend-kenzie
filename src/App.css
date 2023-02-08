@@ -76,6 +76,11 @@ section {
   height: 10px;
 }
 
+div[id="days"] {
+  border: 1px solid red;
+  padding: 5px;
+}
+
 .form-anticipation form #add {
   display: block;
 }
