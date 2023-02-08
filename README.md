@@ -38,6 +38,19 @@ O layout proposto para essa calculadora pode ser visto na imagem abaixo.
   <img alt="layoutCalculator" title="#layoutCalculator" src="./public/layout-calculator.png" >
 </p>
 
+### **API**
+
+Você consumirá uma API já existente no endereço abaixo. Em seguida há uma especificação simplificada dela.
+
+`https://frontend-challenge-7bu3nxh76a-uc.a.run.app`
+
+### **Post**
+
+<p align="center">
+  <img alt="imagePost" title="#imagePost" src="./public/imagePost.png" >
+</p>
+
+
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
