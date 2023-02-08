@@ -3,6 +3,8 @@ import "./App.css";
 import api from "./server/api";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 interface Idata {
   amount: string;
@@ -12,9 +14,10 @@ interface Idata {
 }
 
 function App() {
-  const [data, setData] = useState({ "1": 0, "15": 0, "30": 0, "90": 0 });
-  const [listDays, setListDays] = useState<number[]>([]);
-  const [listDaysFinal, setListDaysFinal] = useState<number[]>([]);
+  const [listPeriods, setListPeriods] = useState([1, 15, 30, 90]);
+  const [listToExibition, setListToExibition] = useState([1, 15, 30, 90]);
+  const [listValuesByPeriods, setListValuesByPeriods] = useState([0, 0, 0, 0]);
+  const [hasChangeOnPeriods, setHasChangeOnPeriods] = useState(false);
 
   const {
     register,
@@ -23,20 +26,18 @@ function App() {
   } = useForm<Idata>();
 
   const onSubmitFunction: SubmitHandler<Idata> = (data) => {
-    listDays.length > 0 && setListDaysFinal([...listDays]);
-
-    listDays.length > 0
+    hasChangeOnPeriods
       ? api
           .post("", {
             amount: data.amount,
             installments: data.installments,
             mdr: data.mdr,
-            days: listDays, // não pode conter mais que 10 items
+            days: listPeriods, // não pode conter mais que 10 items
           })
           .then((res) => {
-            console.log(res);
-            setData(res.data);
-            setListDays([]);
+            setListValuesByPeriods(Object.values(res.data));
+            setHasChangeOnPeriods(false);
+            setListToExibition([...listPeriods]);
           })
       : api
           .post("", {
@@ -45,17 +46,26 @@ function App() {
             mdr: data.mdr,
           })
           .then((res) => {
-            console.log(res);
-            setData(res.data);
+            setListValuesByPeriods(Object.values(res.data));
+            setHasChangeOnPeriods(false);
+            setListToExibition([...listPeriods]);
           });
   };
 
-  const includeDay = (e: any) => {
-    setListDays([...listDays, Number(e.target.value)]);
-    listDays.sort((a, b) => a - b);
+  const removePeriod = (e: any) => {
+    const newListPeriods = listPeriods.filter(
+      (period) => period !== Number(e.target.id)
+    );
+    setListPeriods([...newListPeriods]);
   };
 
-  console.log(listDaysFinal);
+  const addPeriod = (e: any) => {
+    // e.preventDefault();
+    const newPeriod = e.target.previousSibling.value;
+    console.dir(newPeriod);
+    // let orderedNewListPeriods = [...listPeriods, newPeriod].sort();
+    setListPeriods([...listPeriods, Number(newPeriod)]);
+  };
 
   return (
     <>
@@ -99,15 +109,48 @@ function App() {
                 {errors.mdr && <span>This field is required</span>}
               </label>
 
-              <label htmlFor="days">
-                Informe o período a ser incluído na simulação *{" "}
-                <input
-                  id="days"
-                  {...register("days")}
-                  onChange={includeDay}
-                ></input>
-                {errors.days && <span>This field is required</span>}
-              </label>
+              <label htmlFor="days">Períodos para cálculo * </label>
+              <button
+                onClick={() =>
+                  hasChangeOnPeriods
+                    ? setHasChangeOnPeriods(false)
+                    : setHasChangeOnPeriods(true)
+                }
+                type={"button"}
+              >
+                Adicionar / Remover Períodos
+              </button>
+              <div className="box-periods">
+                {listPeriods.map((period) => (
+                  <div className="block-period" id={String(period)}>
+                    <input
+                      id="days"
+                      {...register("days")}
+                      value={String(period)}
+                      placeholder={String(period)}
+                      disabled={true}
+                    ></input>
+                    {hasChangeOnPeriods && (
+                      <IoIosRemoveCircleOutline
+                        size={"1.5em"}
+                        color={"red"}
+                        id={String(period)}
+                        onClick={removePeriod}
+                      />
+                    )}
+                  </div>
+                ))}
+                {hasChangeOnPeriods && (
+                  <div className="block-period">
+                    <input id="days" {...register("days")}></input>
+                    <IoIosAddCircleOutline
+                      size={"1.5em"}
+                      color={"blue"}
+                      onClick={addPeriod}
+                    />
+                  </div>
+                )}
+              </div>
 
               <button type="submit" id="simular">
                 Simular
@@ -119,50 +162,15 @@ function App() {
               <h3>
                 VOCÊ RECEBERÁ: <hr />
               </h3>
-              {listDaysFinal.length > 0 ? (
-                <>
-                  {listDaysFinal.map((day, key) => (
-                    <p>
-                      Em {day} dias: R$ {listDaysFinal[key]},00
-                    </p>
-                  ))}
-                  {/* <p>Amanhã: R$ {data["1"]},00</p>
-                  <p>Em 15 dias: R$ {data["15"]},00</p>
-                  <p>Em 30 dias: R$ {data["30"]},00</p>
-                  <p>Em 90 dias: R$ {data["90"]},00</p> */}
-                </>
-              ) : (
-                <>
-                  <p>
-                    Amanhã:{" "}
-                    {Number(data["1"]).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
-                  <p>
-                    Em 15 dias:{" "}
-                    {Number(data["15"]).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
-                  <p>
-                    Em 30 dias:{" "}
-                    {Number(data["30"]).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
-                  <p>
-                    Em 90 dias:{" "}
-                    {Number(data["90"]).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
-                </>
-              )}
+              {listToExibition.map((value, key) => (
+                <p>
+                  Em {value} dias:{" "}
+                  {listValuesByPeriods[key].toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </p>
+              ))}
             </div>
           </div>
         </section>

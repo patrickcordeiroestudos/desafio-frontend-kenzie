@@ -29,11 +29,12 @@ section {
 
 .form-anticipation form {
   width: 80%;
-  height: 70%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
 }
 
 .form-anticipation form h1 {
@@ -58,6 +59,21 @@ section {
 
 .form-anticipation form .days {
   display: block;
+}
+
+.box-periods {
+  display: flex;
+  gap: 10px;
+}
+
+.block-period {
+  display: flex;
+  align-items: center;
+}
+
+#days {
+  width: 15px;
+  height: 10px;
 }
 
 .form-anticipation form #add {
