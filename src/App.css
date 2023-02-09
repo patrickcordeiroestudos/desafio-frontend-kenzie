@@ -64,6 +64,7 @@ section {
 .box-periods {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .block-period {
@@ -74,6 +75,12 @@ section {
 #days {
   width: 15px;
   height: 10px;
+}
+
+#days::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 div[id="days"] {

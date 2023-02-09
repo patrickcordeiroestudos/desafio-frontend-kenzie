@@ -61,7 +61,9 @@ function App() {
 
   const addPeriod = (e: any) => {
     const newPeriod = Number(e.target.previousSibling.value);
-    const newListPeriods = [...listPeriods, newPeriod].sort();
+    const newListPeriods = [...listPeriods, newPeriod].sort(function (a, b) {
+      return a - b;
+    });
     setListPeriods([...newListPeriods]);
   };
 
@@ -139,7 +141,12 @@ function App() {
                 ))}
                 {hasChangeOnPeriods && (
                   <div className="block-period">
-                    <input id="days" {...register("days")}></input>
+                    <input
+                      id="days"
+                      {...register("days")}
+                      type="number"
+                      max={1200}
+                    ></input>
                     <IoIosAddCircleOutline
                       size={"1.5em"}
                       color={"blue"}
